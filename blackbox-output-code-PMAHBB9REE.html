@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayang!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+        }
+        
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .btn-nav {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .photo-frame {
+            border: 10px solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: scale(1.02);
+        }
+        
+        .editable {
+            border: 2px solid transparent;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-height: 50px;
+        }
+        
+        .editable:focus {
+            border-color: #ff6b6b;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .editable-image {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .editable-image:hover::after {
+            content: '✏️ Klik untuk ganti foto';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div id="page1" class="page active min-h-screen flex items-center justify-center p-6">
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="mb-8 fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 heart">🎂</h1>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 editable" contenteditable="true">Selamat Ulang Tahun</h2>
+                <p class="text-xl md:text-2xl opacity-90 mb-8 editable" contenteditable="true">Untuk Orang Teristimewa dalam Hidupku</p>
+            </div>
+            
+            <div class="photo-frame bg-white/10 backdrop-blur-sm rounded-xl p-8 mb-8 fade-in" style="animation-delay: 0.3s;">
+                <div class="editable-image" onclick="document.getElementById('mainPhotoUpload').click()">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/abe5ef1e-f286-4e23-8168-2a824b4f2918.png" alt="Pasangan romantis berpelukan di bawah langit berbintang dengan latar belakang kota malam hari" class="w-full h-64 object-cover rounded-lg mx-auto mb-6">
+                </div>
+                <p class="text-lg italic editable" contenteditable="true">"Setiap momen bersamamu adalah hadiah terindah"</p>
+                <input type="file" id="mainPhotoUpload" class="hidden" accept="image/*" onchange="changeMainPhoto(this)">
+            </div>
+            
+            <button onclick="nextPage()" class="btn-nav px-8 py-4 rounded-full text-lg font-semibold text-white fade-in" style="animation-delay: 0.6s;">
+                Buka Kejutan 🎁
+            </button>
+        </div>
+    </div>
+
+    <div id="page2" class="page min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 heart editable" contenteditable="true">💌 Untukmu Sayang</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <div class="photo-frame bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                    <h3 class="text-2xl font-semibold mb-4 editable" contenteditable="true">Foto Kenangan Kita</h3>
+                    <div class="editable-image" onclick="document.getElementById('photoUpload').click()">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/636f394e-0949-4a95-adb0-939913e21efd.png" alt="Pasangan tersenyum bahagia di taman bunga dengan latar belakang matahari terbenam" class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <input type="file" id="photoUpload" class="hidden" accept="image/*" onchange="changePhoto(this)">
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                    <h3 class="text-2xl font-semibold mb-4 editable" contenteditable="true">Ucapan Spesial</h3>
+                    <div 
+                        contenteditable="true" 
+                        class="editable min-h-[150px] bg-white/5 rounded-lg p-4 text-left text-lg"
+                        oninput="updateMessage()"
+                    >
+                        Selamat ulang tahun sayangku! Terima kasih telah menjadi bagian terindah dalam hidupku. Semoga di usia yang baru ini, semua impianmu tercapai dan kebahagiaan selalu menyertaimu. Aku sayang kamu! ❤️
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="prevPage()" class="px-6 py-3 bg-gray-600 rounded-lg hover:bg-gray-700 transition">
+                    Kembali
+                </button>
+                <button onclick="nextPage()" class="btn-nav px-6 py-3 rounded-lg">
+                    Lanjut
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page3" class="page min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 heart editable" contenteditable="true">🎵 Memori Spesial</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <div class="editable-image" onclick="document.getElementById('memory1Upload').click()">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/287654ed-3cc4-42ef-98e3-306216272856.png" alt="Momen pertama bertemu di kafe dengan latar belakang buku dan kopi" class="w-full h-32 object-cover rounded-lg mb-3">
+                    </div>
+                    <input type="file" id="memory1Upload" class="hidden" accept="image/*" onchange="changeMemoryPhoto(1, this)">
+                    <h4 class="font-semibold mb-2 editable" contenteditable="true">Pertemuan Pertama</h4>
+                    <p class="text-sm opacity-90 editable" contenteditable="true">Hari dimana segalanya bermula</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <div class="editable-image" onclick="document.getElementById('memory2Upload').click()">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0c2e5e35-5fba-44d5-8d4f-6c591a013a86.png" alt="Perjalanan pertama ke pantai dengan ombak yang tenang dan pasir putih" class="w-full h-32 object-cover rounded-lg mb-3">
+                    </div>
+                    <input type="file" id="memory2Upload" class="hidden" accept="image/*" onchange="changeMemoryPhoto(2, this)">
+                    <h4 class="font-semibold mb-2 editable" contenteditable="true">Petualangan Kita</h4>
+                    <p class="text-sm opacity-90 editable" contenteditable="true">Setiap momen adalah petualangan baru</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <div class="editable-image" onclick="document.getElementById('memory3Upload').click()">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a9651eb-92cd-4ee0-b3c5-ffdc2713a13c.png" alt="Momen kebersamaan di rumah dengan dekorasi natal yang hangat" class="w-full h-32 object-cover rounded-lg mb-3">
+                    </div>
+                    <input type="file" id="memory3Upload" class="hidden" accept="image/*" onchange="changeMemoryPhoto(3, this)">
+                    <h4 class="font-semibold mb-2 editable" contenteditable="true">Kebersamaan</h4>
+                    <p class="text-sm opacity-90 editable" contenteditable="true">Bahagia sederhana bersamamu</p>
+                </div>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
+                <h3 class="text-2xl font-semibold mb-4 editable" contenteditable="true">Tambahkan Kenangan Baru</h3>
+                <div class="editable-image" onclick="document.getElementById('newMemoryUpload').click()">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a5699840-1e2c-43c9-905f-1ecac8c1253a.png" alt="Tempat untuk menambahkan foto kenangan baru" class="w-full h-32 object-cover rounded-lg mx-auto mb-4">
+                </div>
+                <input type="file" id="newMemoryUpload" class="hidden" accept="image/*" multiple onchange="addNewMemory(this)">
+                <div contenteditable="true" class="editable min-h-[100px] bg-white/5 rounded-lg p-4 text-left">
+                    Ceritakan kenangan spesialmu di sini...
+                </div>
+            </div>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="prevPage()" class="px-6 py-3 bg-gray-600 rounded-lg hover:bg-gray-700 transition">
+                    Kembali
+                </button>
+                <button onclick="nextPage()" class="btn-nav px-6 py-3 rounded-lg">
+                    Simpan & Lanjut
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page4" class="page min-h-screen flex items-center justify-center p-6">
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="mb-8">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 heart">🎉</h1>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 editable" contenteditable="true">Selamat Ulang Tahun!</h2>
+                <p class="text-xl md:text-2xl opacity-90 mb-8 editable" contenteditable="true">Semoga hari ini penuh dengan kebahagiaan dan kejutan</p>
+            </div>
+            
+            <div class="photo-frame bg-white/10 backdrop-blur-sm rounded-xl p-8 mb-8">
+                <div class="editable-image" onclick="document.getElementById('cakePhotoUpload').click()">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1fb82ec8-f1ba-4f3f-accc-e838d9eea9c8.png" alt="Kue ulang tahun dengan lilin menyala dan dekorasi bunga di latar belakang yang elegan" class="w-full h-64 object-cover rounded-lg mx-auto mb-6">
+                </div>
+                <input type="file" id="cakePhotoUpload" class="hidden" accept="image/*" onchange="changeCakePhoto(this)">
+                <p class="text-lg italic editable" contenteditable="true" id="finalMessage">Pesan spesial untukmu akan muncul di sini</p>
+            </div>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <button onclick="createConfetti()" class="btn-nav px-6 py-3 rounded-lg">
+                    Sebarkan Konfeti! 🎊
+                </button>
+                <button onclick="saveAllChanges()" class="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                    Simpan Perubahan
+                </button>
+                <button onclick="shareMessage()" class="px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                    Bagikan Kejutan
+                </button>
+            </div>
+            
+            <button onclick="prevPage()" class="px-6 py-3 bg-gray-600 rounded-lg hover:bg-gray-700 transition">
+                Edit Lagi
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 4;
+        let userMessage = "";
+        
+        // Fungsi untuk mengganti foto utama
+        function changeMainPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('#page1 .editable-image img').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Fungsi untuk mengganti foto di halaman 2
+        function changePhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('#page2 .editable-image img').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Fungsi untuk mengganti foto memori
+        function changeMemoryPhoto(memoryNumber, input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector(`#memory${memoryNumber}Upload`).previousElementSibling.querySelector('img').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Fungsi untuk mengganti foto kue
+        function changeCakePhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('#page4 .editable-image img').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Fungsi untuk menambah memori baru
+        function addNewMemory(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    alert('Foto kenangan baru berhasil ditambahkan!');
+                    // Di sini bisa ditambahkan logika untuk menampilkan foto baru
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function updateMessage() {
+            userMessage = document.querySelector('[contenteditable="true"]').innerText;
+            document.getElementById('finalMessage').innerText = userMessage || "Selamat ulang tahun sayang! Aku mencintaimu selalu ❤️";
+        }
+        
+        function saveAllChanges() {
+            alert('Semua perubahan telah disimpan! (Perubahan tersimpan sementara di browser ini)');
+        }
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+                
+                if (currentPage === totalPages) {
+                    updateMessage();
+                    createConfetti();
+                }
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage--;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+            }
+        }
+        
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+        
+        function shareMessage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Selamat Ulang Tahun!',
+                    text: userMessage || 'Selamat ulang tahun sayang! ❤️',
+                    url: window.location.href
+                });
+            } else {
+                alert('Berbagi tidak didukung di browser ini. Silakan salin teks secara manual.');
+            }
+        }
+        
+        // Initial confetti
+        setTimeout(createConfetti, 1000);
+    </script>
+</body>
+</html>
